@@ -9,9 +9,14 @@ const initialState = {
 const postReducer = (state = initialState, action) => {
     switch(action.type) {
         case 'ADD_POST':
-            console.log('created post', action.post)
+            console.log('created post', action.post);
+            return state;
+        case 'ADD_POST_ERROR':
+            console.log('created post', action.error);
+            return state;
+        default:
+            return state
     }
-    return state
 }
 
 export default postReducer
