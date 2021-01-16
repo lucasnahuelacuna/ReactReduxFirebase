@@ -20,7 +20,7 @@ function App() {
           <Route exact path="/">
             <Dashboard />
           </Route>
-          <Route path="/project/:id">
+          <Route path="/post/:id">
             <PostDetails />
           </Route>
           <Route path="/signin">
