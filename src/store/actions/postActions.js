@@ -1,17 +1,16 @@
-import db from '../../config/firebaseConfig'
-
 export const createPost = (post) => {
-  return (dispatch, getState) => {
+  return (dispatch, getState, { getFirebase, getFirestore}) => {
       //make async call to database
-      db.collection('posts').add({
+      const firestore = getFirestore();
+      firestore.collection('posts').add({
         ...post,
-        authorFirstName: 'Lucas',
-        authorLastName: 'Acuña',
+        authorFirstName: 'Rodrigo',
+        authorLastName: 'Cabrera',
         createdAt: new Date()
       }).then(() => {
         dispatch({ type: 'ADD_POST', post: post})
       }).catch(error => {
-        dispatch({ type: 'ADD_POST_ERROR', error})
+        dispatch({ type: 'ADD_POST_ERROR', error}) 
       })
   }
 }
