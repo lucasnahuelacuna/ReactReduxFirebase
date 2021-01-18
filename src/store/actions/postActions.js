@@ -4,8 +4,8 @@ export const createPost = (post) => {
       const firestore = getFirestore();
       firestore.collection('posts').add({
         ...post,
-        authorFirstName: 'Rodrigo',
-        authorLastName: 'Cabrera',
+        authorFirstName: 'Franco',
+        authorLastName: 'Podio',
         createdAt: new Date()
       }).then(() => {
         dispatch({ type: 'ADD_POST', post: post})

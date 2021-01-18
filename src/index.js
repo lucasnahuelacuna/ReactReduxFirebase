@@ -11,6 +11,8 @@ import { getFirestore, reduxFirestore, createFirestoreInstance } from 'redux-fir
 import { getFirebase, ReactReduxFirebaseProvider } from 'react-redux-firebase'
 import firebaseConfig from './config/firebaseConfig'
 import firebase from 'firebase/app'
+import { useSelector  } from 'react-redux'
+import { isLoaded  } from 'react-redux-firebase'
 
 const store = createStore(rootReducer, 
   compose(
@@ -21,8 +23,8 @@ const store = createStore(rootReducer,
 
 // react-redux-firebase config
 const rrfConfig = {
-  userProfile: 'users'
-  // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+  userProfile: 'users',
+  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
 }
 
 const rrfProps = {
@@ -32,10 +34,25 @@ const rrfProps = {
   createFirestoreInstance 
 }
 
+function AuthIsLoaded({ children }) {
+  const auth = useSelector(state => state.firebase.auth)
+  if (!isLoaded(auth)) {
+    return (
+      <div className="container center">
+        <p>Loading...</p>
+      </div>
+    )
+  } else {
+    return children
+  }
+}
+
 ReactDOM.render(
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
-        <App />
+        <AuthIsLoaded>
+          <App />
+        </AuthIsLoaded>
       </ReactReduxFirebaseProvider>
     </Provider>,
   document.getElementById('root')
