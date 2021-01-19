@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import moment from 'moment';
+import { Redirect } from 'react-router-dom'
 
 const params = {
     id: ''
@@ -12,7 +13,9 @@ const params = {
 const PostDetails = (props) => {
     const { id } = useParams()
     params.id = id
-    const { post } = props
+    const { post, auth } = props
+
+    if(!auth.uid) return <Redirect to="/signin" />
 
     return (
         <>
@@ -43,7 +46,8 @@ const mapStateToProps = (state) => {
     const posts = state.firestore.data.posts
     const post = posts ? posts[params.id] : null
     return {
-        post: post
+        post: post,
+        auth: state.firebase.auth
     }
 }
 

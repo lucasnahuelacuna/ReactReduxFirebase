@@ -24,14 +24,14 @@ const store = createStore(rootReducer,
 // react-redux-firebase config
 const rrfConfig = {
   userProfile: 'users',
-  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+  useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
 }
 
 const rrfProps = {
   firebase,
   config: rrfConfig,
   dispatch: store.dispatch,
-  createFirestoreInstance 
+  createFirestoreInstance,
 }
 
 function AuthIsLoaded({ children }) {
